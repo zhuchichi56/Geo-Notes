@@ -1,0 +1,109 @@
+\section{t检验与卡方分布学习笔记}
+
+\subsection{t检验基础}
+
+\subsubsection{定义}
+t检验用于比较两组数据的均值差异是否显著。
+
+\subsubsection{计算公式}
+\[t = \frac{\bar{X}_1 - \bar{X}_2}{S_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\]
+
+其中：
+\begin{itemize}
+    \item $\bar{X}_1, \bar{X}_2$ 是两组的平均值
+    \item $S_p$ 是合并标准差
+    \item $n_1, n_2$ 是两组的样本量
+\end{itemize}
+
+\subsubsection{合并标准差计算}
+\[S_p = \sqrt{\frac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{n_1+n_2-2}}\]
+
+\subsubsection{实例分析}
+比较两个班级的考试成绩：
+\begin{itemize}
+    \item A班：20个学生，平均分80分，标准差10分
+    \item B班：20个学生，平均分85分，标准差10分
+\end{itemize}
+
+\paragraph{计算步骤}
+\begin{enumerate}
+    \item 计算合并标准差 $S_p = 10$
+    \item 计算t值 = 1.58
+    \item 自由度 = 38
+    \item 查表得临界值（$\alpha=0.05$）= 2.02
+    \item 结论：$|1.58| < 2.02$，差异不显著
+\end{enumerate}
+
+\subsubsection{自由度解释}
+\begin{itemize}
+    \item 自由度 = 总样本数 - 被占用的自由度数
+    \item 例：40个数据 - 2个平均值 = 38个自由度
+\end{itemize}
+
+\subsection{卡方分布}
+
+\subsubsection{定义}
+卡方分布用于检验实际观察值与理论期望值的差异。
+
+\subsubsection{基本公式}
+\[\chi^2 = \sum \frac{(实际值 - 理论值)^2}{理论值}\]
+
+\subsubsection{实例：骰子公平性检验}
+投掷120次骰子的理论与实际结果：
+
+\begin{tabular}{|c|c|c|}
+\hline
+点数 & 理论期望 & 实际结果 \\
+\hline
+1 & 20 & 25 \\
+2 & 20 & 18 \\
+3 & 20 & 15 \\
+4 & 20 & 22 \\
+5 & 20 & 16 \\
+6 & 20 & 24 \\
+\hline
+\end{tabular}
+
+\subsection{显著性水平与临界值}
+
+\subsubsection{显著性水平($\alpha$)}
+\begin{itemize}
+    \item 通常取0.05（95\%置信度）
+    \item 表示允许5\%的误判风险
+\end{itemize}
+
+\subsubsection{临界值的意义}
+\begin{itemize}
+    \item 超过临界值：差异显著，可能不是偶然
+    \item 未超过临界值：差异不显著，可能是随机波动
+\end{itemize}
+
+\subsubsection{决策规则}
+对于t检验：
+\[
+\begin{cases}
+拒绝原假设, & \text{if } |t| > t_\alpha \\
+不拒绝原假设, & \text{if } |t| \leq t_\alpha
+\end{cases}
+\]
+
+对于卡方检验：
+\[
+\begin{cases}
+拒绝原假设, & \text{if } \chi^2 > \chi_\alpha^2 \\
+不拒绝原假设, & \text{if } \chi^2 \leq \chi_\alpha^2
+\end{cases}
+\]
+
+\subsection{关键区别}
+
+\begin{tabular}{|c|c|c|}
+\hline
+特征 & t检验 & 卡方检验 \\
+\hline
+用途 & 比较两组均值差异 & 检验实际值与理论值的差异 \\
+实例 & 比较两个班级成绩 & 检验骰子是否公平 \\
+检验重点 & 均值差异 & 分布差异 \\
+\hline
+\end{tabular}
+

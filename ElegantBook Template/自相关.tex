@@ -1,0 +1,179 @@
+\documentclass{article}
+\usepackage{ctex}  % 支持中文
+\usepackage{amsmath}  % 数学公式
+\usepackage{amsthm}  % 定理环境
+\usepackage{amssymb}  % 数学符号
+\usepackage{graphicx}  % 图片
+\usepackage{enumitem}  % 列表
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}  % 超链接
+
+\title{时间序列分析：自相关系数学习笔记}
+\author{统计学习笔记}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{基本概念}
+
+自相关系数是时间序列分析中的基础概念，用于衡量时间序列在不同时间点之间的相关性。简单来说，它告诉我们"过去的值与未来的值有多相关"。
+
+\subsection{定义与公式}
+
+自相关系数的计算公式：
+
+\begin{equation}
+    \rho_\tau = \frac{\sum_{t=1}^{n-\tau}(x_t - \bar{x})(x_{t+\tau} - \bar{x})}{\sum_{t=1}^{n}(x_t - \bar{x})^2}
+\end{equation}
+
+其中：
+\begin{itemize}
+    \item $x_t$ 是时间t的观测值
+    \item $\bar{x}$ 是序列的平均值
+    \item $\tau$ 是时滞（time lag）
+    \item n 是序列的总长度
+\end{itemize}
+
+\subsection{特点}
+\begin{itemize}
+    \item 取值范围：[-1, 1]
+    \item $\tau = 0$ 时，自相关系数 = 1
+    \item 一般建议时滞$\tau$取值不超过数据长度的1/4
+\end{itemize}
+
+\section{实际意义}
+
+自相关系数帮助我们：
+\begin{enumerate}
+    \item 发现数据的周期性模式
+    \item 评估数据的可预测性
+    \item 识别时间序列中的规律
+\end{enumerate}
+
+例如：
+\begin{itemize}
+    \item $\tau=1$的高相关性：相邻时间点有很强的关联
+    \item $\tau=7$的高相关性：可能存在周周期
+    \item $\tau=12$的高相关性：月度数据可能存在年周期
+\end{itemize}
+
+\section{计算示例}
+
+以5天温度数据为例：[20, 22, 21, 23, 19]°C
+
+\subsection{步骤分解（计算$\tau=1$的自相关系数）}
+
+\begin{enumerate}
+    \item 计算平均值：
+    \[ \bar{x} = (20 + 22 + 21 + 23 + 19) \div 5 = 21 \]
+    
+    \item 计算偏差值（与平均值的差）：
+    \begin{verbatim}
+    20 - 21 = -1
+    22 - 21 = 1
+    21 - 21 = 0
+    23 - 21 = 2
+    19 - 21 = -2
+    \end{verbatim}
+    
+    \item 计算分子（偏差乘积之和）：
+    \[ (-1)(1) + (1)(0) + (0)(2) + (2)(-2) = -5 \]
+    
+    \item 计算分母（偏差平方和）：
+    \[ (-1)^2 + (1)^2 + (0)^2 + (2)^2 + (-2)^2 = 10 \]
+    
+    \item 最终结果：
+    \[ \rho_1 = -5/10 = -0.5 \]
+\end{enumerate}
+
+\subsection{矩阵表示}
+
+自相关系数也可以用矩阵形式简洁地表示：
+
+\begin{equation}
+    \rho_\tau = \frac{\mathbf{X}^T\mathbf{X_\tau}}{\mathbf{X}^T\mathbf{X}}
+\end{equation}
+
+其中：
+\[ 
+\mathbf{X} = \begin{bmatrix} 
+x_1 - \bar{x} \\
+x_2 - \bar{x} \\
+\vdots \\
+x_{n-\tau} - \bar{x}
+\end{bmatrix}, \quad
+\mathbf{X_\tau} = \begin{bmatrix}
+x_{1+\tau} - \bar{x} \\
+x_{2+\tau} - \bar{x} \\
+\vdots \\
+x_n - \bar{x}
+\end{bmatrix}
+\]
+
+\section{设计原理}
+
+自相关系数公式的设计考虑了以下几个关键点：
+
+\begin{enumerate}
+    \item \textbf{去中心化}（减去平均值）：
+    \begin{itemize}
+        \item 消除数据整体水平的影响
+        \item 突出变化模式
+    \end{itemize}
+    
+    \item \textbf{标准化}（除以方差）：
+    \begin{itemize}
+        \item 使结果限制在[-1,1]区间
+        \item 便于不同数据集之间的比较
+    \end{itemize}
+    
+    \item \textbf{相乘项}：
+    \begin{itemize}
+        \item 正正/负负相乘为正，表示正相关
+        \item 正负相乘为负，表示负相关
+    \end{itemize}
+    
+    \item \textbf{时滞$\tau$}：
+    \begin{itemize}
+        \item 允许探测不同时间尺度的关系
+        \item 有助于发现各种周期性模式
+    \end{itemize}
+\end{enumerate}
+
+\section{应用示例}
+
+商店销售额分析：
+\begin{itemize}
+    \item $\tau=1$的高相关：今天生意好，明天可能也好
+    \item $\tau=7$的高相关：每周相同日子的销售模式相似
+    \item 应用：人力资源调配、库存管理优化
+\end{itemize}
+
+\section{注意事项}
+
+\begin{enumerate}
+    \item 样本量要求：
+    \begin{itemize}
+        \item 计算高阶时滞需要足够多的数据
+        \item 一般建议$\tau$不超过数据长度的1/4
+    \end{itemize}
+    
+    \item 解释限制：
+    \begin{itemize}
+        \item 仅反映线性关系
+        \item 需要与其他分析方法配合使用
+    \end{itemize}
+    
+    \item 实际应用：
+    \begin{itemize}
+        \item 通常使用软件（如Python、R）计算
+        \item 要注意数据的平稳性假设
+    \end{itemize}
+\end{enumerate}
+
+\end{document}
+
+
+
+

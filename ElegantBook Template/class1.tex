@@ -1,0 +1,122 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{enumitem}
+\geometry{a4paper, margin=1in}
+
+\title{时间序列与随机过程核心概念笔记}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{1. 时间序列的组成与特征}
+\begin{itemize}
+    \item 时间序列是随时间变化的变量记录，广泛存在于地理、经济等领域。
+    \item 实际中的时间序列通常是\textbf{多种成分叠加}的结果，包括：
+    \begin{enumerate}[label=(\alph*)]
+        \item \textbf{确定性成分}：如周期性变化（例如地球—太阳—月球的引力作用）。
+        \item \textbf{随机性成分}：如噪声和不可预测的干扰。
+    \end{enumerate}
+    \item 公式表示：\[
+    Y = T + C + I \quad \text{或} \quad Y = T \cdot C \cdot I
+    \]
+    其中：
+    \begin{itemize}
+        \item \( T \)：趋势成分（增长或衰减）。
+        \item \( C \)：循环成分（如季节性波动）。
+        \item \( I \)：不规则随机成分。
+    \end{itemize}
+\end{itemize}
+
+---
+
+\section*{2. 时间序列的主要类型}
+\begin{itemize}
+    \item \textbf{准周期序列（Quasi-Periodic）}：近似周期，但周期不完全固定。例如潮汐受太阳和月球周期性影响，但其叠加关系不可通约。
+    \item \textbf{暂态序列（Transient State）}：无明显周期性，但可能有趋势、跳跃或突变。例如：
+    \begin{itemize}
+        \item \textbf{跳跃（Jump）：}急剧变化，反映系统从一种状态快速过渡到另一种状态。
+        \item \textbf{突变（Catastrophe）：}跳跃的特殊形式，系统可能会回归原状。
+    \end{itemize}
+    \item \textbf{趋势序列}：统计参数（如均值、方差等）呈现持续变化，通常由系统内部性质决定。
+\end{itemize}
+
+---
+
+\section*{3. 随机过程的概念}
+\begin{itemize}
+    \item \textbf{随机过程（Stochastic Process）}：随时间推进的随机现象的数学抽象。
+    \item 示例：
+    \begin{itemize}
+        \item 某地每年的降水量 \( x_t \)。
+        \item 某公交车站不同时间的候车人数。
+    \end{itemize}
+    \item 一个随机过程可以用\textbf{随机时间序列}表示，而其变量本质上是随机变量。
+    \item \textbf{随机变量（Random Variable）}：描述随机现象各种可能结果的变量，例如某时刻公交车站的候车人数。
+\end{itemize}
+
+---
+
+\section*{4. 平稳时间序列与相依性}
+\begin{itemize}
+    \item \textbf{平稳时间序列}：统计特性（如均值、方差、自相关）不随时间变化的时间序列。
+    \item 分类：
+    \begin{enumerate}[label=(\alph*)]
+        \item \textbf{独立随机序列：}序列中每个变量相互独立，无关联性。
+        \item \textbf{相依随机序列：}序列变量之间有线性相关性，用\textbf{自相关系数}量化。
+    \end{enumerate}
+    \item \textbf{线性平稳随机模型}：
+    \begin{itemize}
+        \item 自回归模型（AR）。
+        \item 自回归-移动平均模型（ARMA）。
+    \end{itemize}
+    \item 实例：空间分析中的\textbf{空间自相关分析}，如 Moran’s I。
+\end{itemize}
+
+---
+
+\section*{5. 时间序列分析方法}
+\begin{itemize}
+    \item \textbf{分解方法：}对于具有 \( Y = T + C + I \) 结构的时间序列，可通过分解提取趋势和周期成分。
+    \item \textbf{数学变换：}如傅里叶分析，用于分解多周期叠加的复杂时间序列。
+    \item \textbf{随机成分识别：}
+    \begin{itemize}
+        \item 通过绘制时间序列图（横轴为时间 \( t \)，纵轴为变量值 \( x(t) \））初步识别类型。
+        \item 借助统计量如\textbf{自相关系数}和卡方检验更准确地判断特征。
+    \end{itemize}
+\end{itemize}
+
+---
+
+\section*{6. 核心总结}
+\begin{enumerate}[label=\arabic*.]
+    \item 时间序列是多种成分（趋势、周期、随机等）叠加的结果，分析时需要分解和识别。
+    \item \textbf{随机过程}可以用随机序列表示，其变量是随机变量。随机序列分为独立和相依两种类型。
+    \item 分析工具：
+    \begin{itemize}
+        \item \textbf{简单方法：}时间序列图直观法。
+        \item \textbf{统计方法：}自相关分析、随机模型（如 AR, ARMA）。
+    \end{itemize}
+    \item 重要应用：
+    \begin{itemize}
+        \item 识别跳跃（急剧变化）和突变（临界变化）。
+        \item 研究复杂系统的时间序列行为，如气候变化、潮汐、社会经济系统。
+    \end{itemize}
+\end{enumerate}
+
+---
+
+\section*{7. 示例：降水量与时间序列}
+\begin{itemize}
+    \item 深圳市年降水量 \( x_t \) 是一个随机过程。
+    \item 它受多种周期性（如季节）和随机性（如天气波动）因素的影响。
+    \item 我们可以通过时间序列分析，提取其趋势（如年降水量增加或减少）、周期性（如雨季模式）和随机成分（短期波动）。
+\end{itemize}
+
+---
+
+\end{document}
+

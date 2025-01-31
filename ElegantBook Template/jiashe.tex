@@ -1,0 +1,112 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{enumitem}
+
+
+\geometry{a4paper, margin=1in}
+
+\title{通俗易懂的 t 检验和显著性判断}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{1. 什么是 t 检验？}
+t 检验是一种统计方法，用于比较两组数据的平均值是否存在显著差异。常见于以下场景：
+\begin{itemize}
+    \item 药物实验：比较实验组（服药）和对照组（未服药）的健康指标差异。
+    \item 教育研究：比较两种教学方法对学生成绩的影响。
+\end{itemize}
+
+\textbf{核心思想：}  
+通过计算 t 值和 p 值，判断是否拒绝零假设 \( H_0 \) （即两组均值相等）。
+
+---
+
+\section*{2. t 检验公式}
+t 值的计算公式如下：
+\[
+t = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{S_p^2 \cdot \left( \frac{1}{n_1} + \frac{1}{n_2} \right)}}
+\]
+其中：
+\begin{itemize}
+    \item \( \bar{X}_1, \bar{X}_2 \)：实验组和对照组的样本均值。
+    \item \( S_p^2 \)：两组数据的合并方差：
+    \[
+    S_p^2 = \frac{(n_1 - 1) S_1^2 + (n_2 - 1) S_2^2}{n_1 + n_2 - 2}
+    \]
+    \item \( n_1, n_2 \)：两组样本的大小。
+    \item \( S_1, S_2 \)：两组数据的标准差。
+\end{itemize}
+
+---
+
+\section*{3. 显著性和 p 值}
+\begin{itemize}
+    \item \textbf{显著性水平（\(\alpha\)}：}  
+    通常设定为 \( \alpha = 0.05 \)，即允许 5\% 的概率犯第一类错误（错误拒绝一个正确的假设）。
+    \item \textbf{p 值：}  
+    \( p \) 值表示在零假设成立时，观察到当前数据或更极端结果的概率。
+    \item \textbf{判断规则：}
+    \begin{enumerate}[label=\arabic*.]
+        \item 如果 \( p < \alpha \)，拒绝零假设 \( H_0 \)，结果具有统计显著性。
+        \item 如果 \( p \geq \alpha \)，无法拒绝零假设，结果不具有统计显著性。
+    \end{enumerate}
+\end{itemize}
+
+---
+
+\section*{4. 核心总结}
+\begin{itemize}
+    \item t 检验的目标是判断两组均值是否有显著差异。
+    \item \textbf{规则：}  
+    只要算出来的 \( p \) 值小于显著性水平 \( \alpha \)（比如 0.05），就可以拒绝零假设 \( H_0 \)。
+    \item \( p \) 值越小，越有理由认为两组均值确实不同。
+    \item \textbf{通俗理解：}  
+    \( p \) 值是对零假设发出的“报警信号”，越小代表越不支持零假设，差异越显著。
+\end{itemize}
+
+---
+
+\section*{5. 举例：药物实验}
+假设：我们想测试一种药物是否有效。
+\begin{itemize}
+    \item \textbf{零假设（\( H_0 \)}：}药物无效（实验组和对照组的均值相等）。
+    \item \textbf{备选假设（\( H_1 \)}：}药物有效（实验组和对照组的均值不同）。
+\end{itemize}
+
+实验结果：
+\[
+\bar{X}_1 = 120, \quad \bar{X}_2 = 125, \quad S_1 = 10, \quad S_2 = 12, \quad n_1 = n_2 = 30
+\]
+
+计算 \( t \) 值（略过计算细节）：
+\[
+t = -1.75
+\]
+
+自由度 \( df = n_1 + n_2 - 2 = 58 \)，查表得对应 \( p \) 值：
+\[
+p = 0.02
+\]
+
+\textbf{结论：}
+\begin{itemize}
+    \item \( p = 0.02 < \alpha = 0.05 \)，因此拒绝零假设 \( H_0 \)，说明药物对健康有显著效果。
+\end{itemize}
+
+---
+
+\section*{6. 注意事项}
+\begin{itemize}
+    \item \( p \) 值越小，并不表示差异越大，而是表示结果越不可能是偶然发生的。
+    \item 统计显著性（\( p \) 值小）不等于实际意义，需要结合效应大小和实际场景分析。
+\end{itemize}
+
+\end{document}
+
+

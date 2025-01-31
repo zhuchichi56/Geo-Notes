@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage{CJKutf8}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{enumitem}
+
+\geometry{a4paper,margin=2.5cm}
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+
+\title{统计推断与抽样理论重要概念总结}
+\author{阅读笔记}
+\date{\today}
+
+\maketitle
+
+\section{统计推断的基本概念}
+
+\subsection{核心定义}
+统计推断(Statistical inference)的本质是通过样本数据对总体特征进行推断。其中最重要的概念：
+\begin{itemize}
+    \item 总体(Population)：研究对象的全体
+    \item 样本(Sample)：总体中的一部分个体
+\end{itemize}
+
+\subsection{重要结论}
+
+\textbf{关于样本量的关键结论：}
+\begin{itemize}
+    \item 理论上样本越大越接近总体，结论越可靠
+    \item 实践中1200-1500是比较理想的选择
+    \item 社会调查中样本量不应低于1000
+\end{itemize}
+
+\section{抽样误差与偏性}
+
+\subsection{两类基本误差}
+\begin{enumerate}
+    \item \textbf{偏差(Bias)}：统计量持续朝同一方向偏离总体参数值
+    \item \textbf{变异性(Variability)}：不同样本间的结果差异程度
+\end{enumerate}
+
+\subsection{常见偏性类型}
+\begin{itemize}
+    \item 不回答偏性(Non-response bias)：特定群体倾向于不回答
+    \item 选择偏性(Selection bias)：调查偏向易接触群体
+\end{itemize}
+
+\section{置信陈述}
+
+置信陈述(Confidence Statement)是科学的总体推断表达方式，包含：
+\begin{itemize}
+    \item 误差界限(Margin of Error)：样本统计量与总体参数的距离
+    \item 置信水平(Level of Confidence)：满足误差界限的样本比例
+\end{itemize}
+
+\textbf{规范表述示例：}
+"经过调查，我们有95\%的把握相信，大约有29\%～31\%的总体具有该特征。"
+
+\section{基本统计测度}
+
+\subsection{均值(Mean)}
+\[ \bar{x} = \frac{1}{n}\sum_{i=1}^n x_i \]
+几何意义：表示数据的重心位置
+
+\subsection{方差与标准差}
+总体方差：
+\[ \sigma^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2 \]
+
+样本方差：
+\[ S^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2 \]
+
+\textbf{重要结论：}当样本容量足够大时，总体方差与样本方差的数值差别可以忽略。
+
+\subsection{协方差}
+\[ cov(x,y) = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y}) \]
+
+特殊情况：当$x_i = y_i$时，协方差退化为方差。
+
+\end{CJK}
+\end{document}
+
+
